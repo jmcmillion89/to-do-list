@@ -5,9 +5,27 @@ export const renderDisplay = () => {
     buildProjectList()
 }
 
-const changeBackground = (element) => {
-    const parentElement = element.parentNode
-    parentElement.style.background = 'red'
+const bgColorLogic = (element, todo) => {
+    if (todo.complete === true) {
+        changeBackgroundColor(element, 'green')
+    }
+
+    else if (todo.priority === 'High') {
+        changeBackgroundColor(element, 'red')
+    }
+
+    else if (todo.priority === 'Medium') {
+        changeBackgroundColor(element, 'orange')
+    }
+
+    else if (todo.priority === 'Low') {
+        changeBackgroundColor(element, 'yellow')
+    }
+
+}
+
+const changeBackgroundColor = (element, color) => {
+    element.style.background = color
 
 }
 
@@ -19,7 +37,7 @@ const displayComplete = (todo) => {
 const changeComplete = (button, todo) => {
     todo.updateComplete()
     button.textContent = displayComplete(todo)
-    changeBackground(button)
+    bgColorLogic(button.parentNode, todo)
 }
 
 const displayToDos = (project) => {
@@ -46,6 +64,7 @@ const displayToDos = (project) => {
         })
         newDiv.appendChild(completeBtn)
         toDosList.appendChild(newDiv)
+        bgColorLogic(newDiv, todo)
     })
 }
 
