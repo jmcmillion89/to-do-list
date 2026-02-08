@@ -5,6 +5,14 @@ export const renderDisplay = () => {
     buildProjectList()
 }
 
+const toggleExtraItems = (element) => {
+    element.hidden = element.hidden === true ? false : true;
+}
+
+const toggleExpand = (element) => {
+    element.textContent = element.textContent === '↓' ? '↑' : '↓'
+}
+
 const bgColorLogic = (element, todo) => {
     if (todo.complete === true) {
         changeBackgroundColor(element, 'green')
@@ -30,7 +38,7 @@ const changeBackgroundColor = (element, color) => {
 }
 
 const displayComplete = (todo) => {
-    let complete = todo.complete === true ? '✔' : '✘';
+    let complete = todo.complete === true ? '✘' : '✔'
     return complete
 }
 
@@ -63,6 +71,22 @@ const displayToDos = (project) => {
             changeComplete(e.target, todo)
         })
         newDiv.appendChild(completeBtn)
+        const toggleBtn = document.createElement('button')
+        toggleBtn.classList.add('toggle-btn')
+        toggleBtn.textContent = '↓'
+        newDiv.appendChild(toggleBtn)
+        const toggleDiv = document.createElement('div')
+        toggleDiv.hidden = true
+        const descriptionDiv = document.createElement('div')
+        descriptionDiv.textContent = todo.description
+        toggleDiv.appendChild(descriptionDiv)
+        const notesInput = document.createElement('textarea')
+        toggleDiv.appendChild(notesInput)
+            toggleBtn.addEventListener(('click'), (e) => {
+                toggleExpand(e.target)
+                toggleExtraItems(toggleDiv)
+        })
+        newDiv.appendChild(toggleDiv)
         toDosList.appendChild(newDiv)
         bgColorLogic(newDiv, todo)
     })
