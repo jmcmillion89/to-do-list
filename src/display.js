@@ -45,7 +45,7 @@ const displayComplete = (todo) => {
 const changeComplete = (button, todo) => {
     todo.updateComplete()
     button.textContent = displayComplete(todo)
-    bgColorLogic(button.parentNode, todo)
+    bgColorLogic(button.parentNode.parentNode, todo)
 }
 
 const displayToDos = (project) => {
@@ -55,37 +55,45 @@ const displayToDos = (project) => {
     filteredToDos.forEach((todo) => {
         const newDiv = document.createElement('div')
         newDiv.classList.add('todo')
+        const toDoDetails = document.createElement('div')
+        toDoDetails.classList.add('todo-details')
         const titleDiv = document.createElement('div')
         titleDiv.textContent = todo.title
-        newDiv.appendChild(titleDiv)
+        toDoDetails.appendChild(titleDiv)
         const dueDateDiv = document.createElement('div')
         dueDateDiv.textContent = todo.dueDate
-        newDiv.appendChild(dueDateDiv)
+        toDoDetails.appendChild(dueDateDiv)
         const priorityDiv = document.createElement('div')
         priorityDiv.textContent = todo.priority
-        newDiv.appendChild(priorityDiv)
+        toDoDetails.appendChild(priorityDiv)
+        const btnDiv = document.createElement('div')
+        btnDiv.classList.add('todo-buttons')
         const completeBtn = document.createElement('button')
         completeBtn.classList.add('complete-button')
         completeBtn.textContent = displayComplete(todo)
         completeBtn.addEventListener(('click'), (e) => {
             changeComplete(e.target, todo)
         })
-        newDiv.appendChild(completeBtn)
+        btnDiv.appendChild(completeBtn)
         const toggleBtn = document.createElement('button')
         toggleBtn.classList.add('toggle-btn')
         toggleBtn.textContent = '↓'
-        newDiv.appendChild(toggleBtn)
+        btnDiv.appendChild(toggleBtn)
         const toggleDiv = document.createElement('div')
         toggleDiv.hidden = true
+        toggleDiv.classList.add('todo-toggle')
         const descriptionDiv = document.createElement('div')
         descriptionDiv.textContent = todo.description
         toggleDiv.appendChild(descriptionDiv)
         const notesInput = document.createElement('textarea')
+        notesInput.textContent = 'Notes'
         toggleDiv.appendChild(notesInput)
             toggleBtn.addEventListener(('click'), (e) => {
                 toggleExpand(e.target)
                 toggleExtraItems(toggleDiv)
         })
+        toDoDetails.appendChild(btnDiv)
+        newDiv.appendChild(toDoDetails)
         newDiv.appendChild(toggleDiv)
         toDosList.appendChild(newDiv)
         bgColorLogic(newDiv, todo)
