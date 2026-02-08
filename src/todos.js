@@ -21,6 +21,10 @@ export const addNewToDo = (title, description, dueDate, priority, project) => {
     toDos.push(new toDo(title, description, dueDate, priority, project))
 }
 
+export const removeProjectToDos = (projectName) => {
+    toDos = toDos.filter((todo) => todo.project !== projectName)
+}
+
 const findIndex = (id) => {
     let value;
     toDos.forEach((toDo, index) => {
