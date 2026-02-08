@@ -46,7 +46,7 @@ const changeComplete = (div, todo) => {
     bgColorLogic(div, todo)
 }
 
-const submitNewToDo = (project) => {
+const handleSubmitToDo = (project) => {
     const title = document.querySelector('#title').value
     const description = document.querySelector('#description').value
     const due = document.querySelector('#due').value
@@ -68,7 +68,7 @@ const openToDoDialog = (project) => {
     const submitBtn = document.querySelector('#submit-todo')
     submitBtn.addEventListener(('click'), (e) => {
         e.preventDefault
-        submitNewToDo(project)
+        handleSubmitToDo(project)
         closeToDoDialog()
     }, {once: true})
     
