@@ -91,59 +91,66 @@ const displayToDos = (project) => {
     toDosList.classList.add('todos')
     contentDiv.appendChild(toDosList)
     const filteredToDos = toDos.filter((todo) => todo.project === project)
+    if (projects.length === 0) {
+        contentDiv.textContent = 'Create'
+    }
+
+    else {
     filteredToDos.forEach((todo, index) => {
-        const newDiv = document.createElement('div')
-        newDiv.classList.add('todo')
-        const toDoDetails = document.createElement('div')
-        toDoDetails.classList.add('todo-details')
-        const titleDiv = document.createElement('div')
-        titleDiv.textContent = todo.title
-        toDoDetails.appendChild(titleDiv)
-        const dueDateDiv = document.createElement('div')
-        dueDateDiv.textContent = `Due: ${todo.dueDate}`
-        toDoDetails.appendChild(dueDateDiv)
-        const priorityDiv = document.createElement('div')
-        priorityDiv.textContent = `Priority: ${todo.priority}`
-        toDoDetails.appendChild(priorityDiv)
-        const btnDiv = document.createElement('div')
-        btnDiv.classList.add('todo-buttons')
-        const completeBtn = document.createElement('button')
-        completeBtn.classList.add('complete-button')
-        completeBtn.textContent = '✔️'
-        completeBtn.addEventListener(('click'), (e) => {
-            displayComplete(e.target)
-            changeComplete(newDiv, todo)
-        })
-        btnDiv.appendChild(completeBtn)
-        const toggleBtn = document.createElement('button')
-        toggleBtn.classList.add('toggle-button')
-        toggleBtn.textContent = '⬇️'
-        btnDiv.appendChild(toggleBtn)
-        const cancelBtn = document.createElement('button')
-        cancelBtn.classList.add('remove-button')
-        cancelBtn.textContent = '🗑️'
-        cancelBtn.addEventListener(('click'), () => {
-            removeToDo(todo.id)
-            displayToDos(project)
-        })
-        btnDiv.appendChild(cancelBtn)
-        const toggleDiv = document.createElement('div')
-        toggleDiv.hidden = true
-        toggleDiv.classList.add('todo-toggle')
-        const descriptionDiv = document.createElement('div')
-        descriptionDiv.textContent = todo.description
-        toggleDiv.appendChild(descriptionDiv)
-            toggleBtn.addEventListener(('click'), (e) => {
-                toggleExpand(e.target)
-                toggleExtraItems(toggleDiv)
-        })
-        toDoDetails.appendChild(btnDiv)
-        newDiv.appendChild(toDoDetails)
-        newDiv.appendChild(toggleDiv)
-        toDosList.appendChild(newDiv)
-        bgColorLogic(newDiv, todo)
+            const newDiv = document.createElement('div')
+            newDiv.classList.add('todo')
+            const toDoDetails = document.createElement('div')
+            toDoDetails.classList.add('todo-details')
+            const titleDiv = document.createElement('div')
+            titleDiv.textContent = todo.title
+            toDoDetails.appendChild(titleDiv)
+            const dueDateDiv = document.createElement('div')
+            dueDateDiv.textContent = `Due: ${todo.dueDate}`
+            toDoDetails.appendChild(dueDateDiv)
+            const priorityDiv = document.createElement('div')
+            priorityDiv.textContent = `Priority: ${todo.priority}`
+            toDoDetails.appendChild(priorityDiv)
+            const btnDiv = document.createElement('div')
+            btnDiv.classList.add('todo-buttons')
+            const completeBtn = document.createElement('button')
+            completeBtn.classList.add('complete-button')
+            completeBtn.textContent = '✔️'
+            completeBtn.addEventListener(('click'), (e) => {
+                displayComplete(e.target)
+                changeComplete(newDiv, todo)
+            })
+            btnDiv.appendChild(completeBtn)
+            const toggleBtn = document.createElement('button')
+            toggleBtn.classList.add('toggle-button')
+            toggleBtn.textContent = '⬇️'
+            btnDiv.appendChild(toggleBtn)
+            const cancelBtn = document.createElement('button')
+            cancelBtn.classList.add('remove-button')
+            cancelBtn.textContent = '🗑️'
+            cancelBtn.addEventListener(('click'), () => {
+                removeToDo(todo.id)
+                displayToDos(project)
+            })
+            btnDiv.appendChild(cancelBtn)
+            const toggleDiv = document.createElement('div')
+            toggleDiv.hidden = true
+            toggleDiv.classList.add('todo-toggle')
+            const descriptionDiv = document.createElement('div')
+            descriptionDiv.textContent = todo.description
+            toggleDiv.appendChild(descriptionDiv)
+                toggleBtn.addEventListener(('click'), (e) => {
+                    toggleExpand(e.target)
+                    toggleExtraItems(toggleDiv)
+            })
+            toDoDetails.appendChild(btnDiv)
+            newDiv.appendChild(toDoDetails)
+            newDiv.appendChild(toggleDiv)
+            toDosList.appendChild(newDiv)
+            bgColorLogic(newDiv, todo)
     })
     addNewToDoBtn(project)
+}
+    
 }
 
 const addNewProject = () => {
@@ -166,15 +173,29 @@ const addNewProject = () => {
 }
 
 const buildProjectList = () => {
+    let currentProject;
     const projectNav = document.querySelector('.project-list')
     projectNav.textContent = ''
     projects.forEach((project) => {
-        const newLi = document.createElement('li')
-        newLi.textContent = project
-        newLi.addEventListener('click', () => {
-            displayToDos(project)
+        const newDiv = document.createElement('div')
+        const newProjectDiv = document.createElement('div')
+        const removeBtn = document.createElement('button')
+        newProjectDiv.textContent = project
+        newProjectDiv.addEventListener('click', () => {
+            currentProject = project
+            displayToDos(currentProject)
         })
-        projectNav.appendChild(newLi)
+        removeBtn.textContent = '❌'
+        removeBtn.addEventListener(('click'), () => {
+            removeProject(project)
+            buildProjectList()
+            if (project === currentProject || projects.length === 0) {
+                displayToDos(projects[0])
+            }
+        })
+        newDiv.appendChild(newProjectDiv)
+        newDiv.appendChild(removeBtn)
+        projectNav.appendChild(newDiv)
     })
     const addProjectBtn = document.createElement('button')
         addProjectBtn.classList.add('add-project-btn')
