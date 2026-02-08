@@ -1,5 +1,5 @@
 import { projects } from "./projects.js"
-import { toDos, removeToDo } from "./todos.js"
+import { addNewToDo, toDos, removeToDo } from "./todos.js"
 
 export const renderDisplay = () => {
     buildProjectList()
@@ -46,19 +46,42 @@ const changeComplete = (div, todo) => {
     bgColorLogic(div, todo)
 }
 
-const displayNewToDo = (project) => {
-    const contentDiv = document.querySelector('content')
-    contentDiv.textContent = project
+const submitNewToDo = (project) => {
+    const title = document.querySelector('#title').value
+    const description = document.querySelector('#description').value
+    const due = document.querySelector('#due').value
+    const priority = document.querySelector('#priority').value
+    addNewToDo(title, description, due, priority, project)
+    displayToDos(project)
+}
+
+const closeToDoDialog = () => {
+    const dialog = document.querySelector('#todo-dialog')
+    const form = document.querySelector('#todo-form')
+    dialog.close()
+    form.reset()
+}
+
+const openToDoDialog = (project) => {
+    const dialog = document.querySelector('#todo-dialog')
+    dialog.showModal()
+    const submitBtn = document.querySelector('#submit-todo')
+    submitBtn.addEventListener(('click'), (e) => {
+        e.preventDefault
+        submitNewToDo(project)
+        closeToDoDialog()
+    }, {once: true})
+    
 }
 
 const addNewToDoBtn = (project) => {
     const contentDiv = document.querySelector('content')
     const btn = document.createElement('button')
     btn.textContent = '➕'
-    btn.addEventListener(('click'), () => {
-        displayNewToDo(project)
-    })
     contentDiv.appendChild(btn)
+    btn.addEventListener(('click'), () => {
+        openToDoDialog(project)
+    })
 }
 
 const displayToDos = (project) => {
@@ -110,9 +133,6 @@ const displayToDos = (project) => {
         const descriptionDiv = document.createElement('div')
         descriptionDiv.textContent = todo.description
         toggleDiv.appendChild(descriptionDiv)
-        const notesInput = document.createElement('textarea')
-        notesInput.textContent = 'Notes'
-        toggleDiv.appendChild(notesInput)
             toggleBtn.addEventListener(('click'), (e) => {
                 toggleExpand(e.target)
                 toggleExtraItems(toggleDiv)
