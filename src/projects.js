@@ -1,7 +1,9 @@
 export let projects = ['Default']
 
 export const addProject = (projectName) => {
-    projects.push(projectName)
+    if (projectName !== '') {
+        projects.push(projectName)
+    }
 }
 
 export const removeProject = (projectName) => {
