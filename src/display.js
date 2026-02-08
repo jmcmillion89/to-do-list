@@ -1,5 +1,5 @@
 import { projects } from "./projects.js"
-import { toDos } from "./todos.js"
+import { toDos, removeToDo } from "./todos.js"
 
 export const renderDisplay = () => {
     buildProjectList()
@@ -37,22 +37,20 @@ const changeBackgroundColor = (element, color) => {
 
 }
 
-const displayComplete = (todo) => {
-    let complete = todo.complete === true ? '✘' : '✔'
-    return complete
+const displayComplete = (element) => {
+    element.textContent = element.textContent === '✔' ? '✘' : '✔'
 }
 
-const changeComplete = (button, todo) => {
+const changeComplete = (div, todo) => {
     todo.updateComplete()
-    button.textContent = displayComplete(todo)
-    bgColorLogic(button.parentNode.parentNode, todo)
+    bgColorLogic(div, todo)
 }
 
 const displayToDos = (project) => {
     const toDosList = document.querySelector('.todos')
     toDosList.textContent = ''
     const filteredToDos = toDos.filter((todo) => todo.project === project)
-    filteredToDos.forEach((todo) => {
+    filteredToDos.forEach((todo, index) => {
         const newDiv = document.createElement('div')
         newDiv.classList.add('todo')
         const toDoDetails = document.createElement('div')
@@ -61,18 +59,19 @@ const displayToDos = (project) => {
         titleDiv.textContent = todo.title
         toDoDetails.appendChild(titleDiv)
         const dueDateDiv = document.createElement('div')
-        dueDateDiv.textContent = todo.dueDate
+        dueDateDiv.textContent = `Due: ${todo.dueDate}`
         toDoDetails.appendChild(dueDateDiv)
         const priorityDiv = document.createElement('div')
-        priorityDiv.textContent = todo.priority
+        priorityDiv.textContent = `Priority: ${todo.priority}`
         toDoDetails.appendChild(priorityDiv)
         const btnDiv = document.createElement('div')
         btnDiv.classList.add('todo-buttons')
         const completeBtn = document.createElement('button')
         completeBtn.classList.add('complete-button')
-        completeBtn.textContent = displayComplete(todo)
+        completeBtn.textContent = '✔'
         completeBtn.addEventListener(('click'), (e) => {
-            changeComplete(e.target, todo)
+            displayComplete(e.target)
+            changeComplete(newDiv, todo)
         })
         btnDiv.appendChild(completeBtn)
         const toggleBtn = document.createElement('button')
