@@ -1,4 +1,4 @@
-import { projects } from "./projects.js"
+import { projects, addProject, removeProject } from "./projects.js"
 import { addNewToDo, toDos, removeToDo } from "./todos.js"
 
 export const renderDisplay = () => {
@@ -119,14 +119,14 @@ const displayToDos = (project) => {
         toggleBtn.classList.add('toggle-button')
         toggleBtn.textContent = '⬇️'
         btnDiv.appendChild(toggleBtn)
-        const removeBtn = document.createElement('button')
-        removeBtn.classList.add('remove-button')
-        removeBtn.textContent = '🗑️'
-        removeBtn.addEventListener(('click'), () => {
+        const cancelBtn = document.createElement('button')
+        cancelBtn.classList.add('remove-button')
+        cancelBtn.textContent = '🗑️'
+        cancelBtn.addEventListener(('click'), () => {
             removeToDo(todo.id)
             displayToDos(project)
         })
-        btnDiv.appendChild(removeBtn)
+        btnDiv.appendChild(cancelBtn)
         const toggleDiv = document.createElement('div')
         toggleDiv.hidden = true
         toggleDiv.classList.add('todo-toggle')
@@ -146,8 +146,28 @@ const displayToDos = (project) => {
     addNewToDoBtn(project)
 }
 
+const addNewProject = () => {
+    const projectBtn = document.querySelector('.add-project-btn')
+    const projectNav = document.querySelector('.project-list')
+    projectBtn.remove()
+    const newDiv = document.createElement('div')
+    newDiv.classList.add('project-input')
+    const newInput = document.createElement('input')
+    newDiv.appendChild(newInput)
+    const addBtn = document.createElement('button')
+    addBtn.textContent = '✔️'
+    addBtn.addEventListener(('click'), (e) => {
+        e.preventDefault()
+        addProject(newInput.value)
+        buildProjectList()
+    })
+    newDiv.appendChild(addBtn)
+    projectNav.appendChild(newDiv)
+}
+
 const buildProjectList = () => {
     const projectNav = document.querySelector('.project-list')
+    projectNav.textContent = ''
     projects.forEach((project) => {
         const newLi = document.createElement('li')
         newLi.textContent = project
@@ -156,5 +176,12 @@ const buildProjectList = () => {
         })
         projectNav.appendChild(newLi)
     })
+    const addProjectBtn = document.createElement('button')
+        addProjectBtn.classList.add('add-project-btn')
+        addProjectBtn.textContent = '➕'
+        addProjectBtn.addEventListener(('click'), () => {
+            addNewProject()
+        })
+        projectNav.appendChild(addProjectBtn)
 }
 
