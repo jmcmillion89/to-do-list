@@ -46,9 +46,27 @@ const changeComplete = (div, todo) => {
     bgColorLogic(div, todo)
 }
 
+const displayNewToDo = (project) => {
+    const contentDiv = document.querySelector('content')
+    contentDiv.textContent = project
+}
+
+const addNewToDoBtn = (project) => {
+    const contentDiv = document.querySelector('content')
+    const btn = document.createElement('button')
+    btn.textContent = '➕'
+    btn.addEventListener(('click'), () => {
+        displayNewToDo(project)
+    })
+    contentDiv.appendChild(btn)
+}
+
 const displayToDos = (project) => {
-    const toDosList = document.querySelector('.todos')
-    toDosList.textContent = ''
+    const contentDiv = document.querySelector('content')
+    contentDiv.textContent = ''
+    const toDosList = document.createElement('div')
+    toDosList.classList.add('todos')
+    contentDiv.appendChild(toDosList)
     const filteredToDos = toDos.filter((todo) => todo.project === project)
     filteredToDos.forEach((todo, index) => {
         const newDiv = document.createElement('div')
@@ -105,6 +123,7 @@ const displayToDos = (project) => {
         toDosList.appendChild(newDiv)
         bgColorLogic(newDiv, todo)
     })
+    addNewToDoBtn(project)
 }
 
 const buildProjectList = () => {
