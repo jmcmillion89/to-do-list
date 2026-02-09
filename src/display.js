@@ -87,6 +87,9 @@ const addNewToDoBtn = (project) => {
 const displayToDos = (project) => {
     const contentDiv = document.querySelector('content')
     contentDiv.textContent = ''
+    const newH1 = document.createElement('h1')
+    newH1.textContent = `Project: ${project}`
+    contentDiv.appendChild(newH1)
     const toDosList = document.createElement('div')
     toDosList.classList.add('todos')
     contentDiv.appendChild(toDosList)
@@ -94,6 +97,7 @@ const displayToDos = (project) => {
     if (projects.length === 0) {
         contentDiv.textContent = '⬅️Choose or create a project to get started'
     }
+    
 
     else {
     filteredToDos.forEach((todo, index) => {
