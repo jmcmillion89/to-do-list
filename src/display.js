@@ -92,7 +92,7 @@ const displayToDos = (project) => {
     contentDiv.appendChild(toDosList)
     const filteredToDos = toDos.filter((todo) => todo.project === project)
     if (projects.length === 0) {
-        contentDiv.textContent = 'Create'
+        contentDiv.textContent = '⬅️Choose or create a project to get started'
     }
 
     else {
@@ -167,13 +167,16 @@ const addNewProject = () => {
         e.preventDefault()
         addProject(newInput.value)
         buildProjectList()
+        if (projects.length === 1) {
+            displayToDos(projects[0])
+        }
     })
     newDiv.appendChild(addBtn)
     projectNav.appendChild(newDiv)
 }
 
 const buildProjectList = () => {
-    let currentProject;
+    let currentProject = 'Default'
     const projectNav = document.querySelector('.project-list')
     projectNav.textContent = ''
     projects.forEach((project) => {
@@ -204,5 +207,6 @@ const buildProjectList = () => {
             addNewProject()
         })
         projectNav.appendChild(addProjectBtn)
+        displayToDos(currentProject)
 }
 
