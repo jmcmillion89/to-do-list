@@ -15,7 +15,7 @@ const toggleExpand = (element) => {
 
 const bgColorLogic = (element, todo) => {
     if (todo.complete === true) {
-        changeBackgroundColor(element, '#3fff89')
+        changeBackgroundColor(element, '#C5D89D')
     }
 
     else if (todo.priority === 'High') {
@@ -87,7 +87,7 @@ const addNewToDoBtn = (project) => {
 const displayToDos = (project) => {
     const contentDiv = document.querySelector('content')
     contentDiv.textContent = ''
-    const newH1 = document.createElement('h1')
+    const newH1 = document.createElement('h2')
     newH1.textContent = `Project: ${project}`
     contentDiv.appendChild(newH1)
     const toDosList = document.createElement('div')
