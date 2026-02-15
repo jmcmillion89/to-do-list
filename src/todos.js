@@ -1,4 +1,24 @@
+const key = 'todos'
+
 export let toDos = []
+console.log(toDos)
+
+
+
+const populateToDos = (() => {
+    const savedToDos = JSON.parse(localStorage.getItem(key))
+    if (savedToDos !== null) {
+        toDos = []
+        savedToDos.forEach((todo) => {
+        toDos.push(todo)
+    })
+    }
+})()
+
+const updateLocalStorage = () => {
+    localStorage.setItem(key, JSON.stringify(toDos))
+}
+
 
 class toDo {
     constructor(title, description, dueDate, priority, project) {
@@ -19,10 +39,12 @@ class toDo {
 
 export const addNewToDo = (title, description, dueDate, priority, project) => {
     toDos.push(new toDo(title, description, dueDate, priority, project))
+    updateLocalStorage()
 }
 
 export const removeProjectToDos = (projectName) => {
     toDos = toDos.filter((todo) => todo.project !== projectName)
+    updateLocalStorage()
 }
 
 const findIndex = (id) => {
@@ -39,13 +61,14 @@ const findIndex = (id) => {
 export const removeToDo = (id) => {
     let index = findIndex(id)
     toDos.splice(index, 1)
+    updateLocalStorage()
 }
 
 
 
-addNewToDo('test title1', 'test description1', '01/01/2027', 'Medium', 'Default')
-addNewToDo('test title2', 'test description2', '01/01/2027', 'High', 'Default')
-addNewToDo('test title3', 'test description3', '01/01/2027', 'Medium', 'Default')
-addNewToDo('test title4', 'test description4', '01/01/2027', 'Low', 'Default')
-addNewToDo('test title5', 'test description5', '01/01/2027', 'Medium', 'Default')
-addNewToDo('test title6', 'test description6', '01/01/2027', 'High', 'Default')
+// addNewToDo('test title1', 'test description1', '01/01/2027', 'Medium', 'Default')
+// addNewToDo('test title2', 'test description2', '01/01/2027', 'High', 'Default')
+// addNewToDo('test title3', 'test description3', '01/01/2027', 'Medium', 'Default')
+// addNewToDo('test title4', 'test description4', '01/01/2027', 'Low', 'Default')
+// addNewToDo('test title5', 'test description5', '01/01/2027', 'Medium', 'Default')
+// addNewToDo('test title6', 'test description6', '01/01/2027', 'High', 'Default')
