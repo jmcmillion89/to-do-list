@@ -1,24 +1,5 @@
-const key = 'todos'
-
-export let toDos = []
-console.log(toDos)
-
-
-
-const populateToDos = (() => {
-    const savedToDos = JSON.parse(localStorage.getItem(key))
-    if (savedToDos !== null) {
-        toDos = []
-        savedToDos.forEach((todo) => {
-        toDos.push(todo)
-    })
-    }
-})()
-
-const updateLocalStorage = () => {
-    localStorage.setItem(key, JSON.stringify(toDos))
-}
-
+import { Project, getProjects, removeToDo, updateLocalStorage } from "./projects.js"
+const projects = getProjects()
 
 class toDo {
     constructor(title, description, dueDate, priority, project) {
@@ -26,7 +7,6 @@ class toDo {
         this.description = description
         this.dueDate = dueDate
         this.priority = priority
-        this.project = project
         this.complete = false
         this.id = crypto.randomUUID();
     }
@@ -37,36 +17,38 @@ class toDo {
 
 }
 
-export const addNewToDo = (title, description, dueDate, priority, project) => {
-    toDos.push(new toDo(title, description, dueDate, priority, project))
-    updateLocalStorage()
+const getProjectIndex = (id) => {
+    return projects.map(() => {return id}).indexOf(id)
 }
 
-export const removeProjectToDos = (projectName) => {
-    toDos = toDos.filter((todo) => todo.project !== projectName)
-    updateLocalStorage()
+const getToDoIndex = (index, id) => {
+    return projects[index].todos.map(() => {return id}).indexOf(id)
+
 }
 
-const findIndex = (id) => {
-    let value;
-    toDos.forEach((toDo, index) => {
-        if (toDo.id === id) {
-            value = index
-        }
-    }
-)
-    return value
+export const addNewToDo = 
+    (id,  
+    title, 
+    description, 
+    dueDate, 
+    priority) => {
+    const index = getProjectIndex(id)
+    projects[index].addToDo(new toDo(title, description, dueDate, priority))
 }
 
-export const removeToDo = (id) => {
-    let index = findIndex(id)
-    toDos.splice(index, 1)
-    updateLocalStorage()
+export const removeThisToDo = (projectID, toDoID) => {
+    const projectIndex = getProjectIndex(projectID)
+    const toDoIndex = getToDoIndex(projectIndex, toDoID)
+    projects[projectIndex].removeToDo(toDoIndex)
 }
 
+// const testID = () => {
+//     return projects[0].id
+// }
 
+// trying to figure out why my index is showing -1 instead of 0
 
-// addNewToDo('test title1', 'test description1', '01/01/2027', 'Medium', 'Default')
+// addNewToDo(testID(), 'test title1', 'test description1', '01/01/2027', 'Medium')
 // addNewToDo('test title2', 'test description2', '01/01/2027', 'High', 'Default')
 // addNewToDo('test title3', 'test description3', '01/01/2027', 'Medium', 'Default')
 // addNewToDo('test title4', 'test description4', '01/01/2027', 'Low', 'Default')
