@@ -1,8 +1,6 @@
 const key = 'projects'
 export const savedProjects = localStorage.getItem(key)
 
-import { removeProjectToDos } from "./todos.js"
-
 class Project {
     constructor(name) {
         this.name = name
@@ -12,17 +10,18 @@ class Project {
 
     addToDo(todo) {
         this.todos.push(todo)
+        updateLocalStorage()
     }
 
     removeToDo(index) {
         this.todos.splice(index, 1)
+        updateLocalStorage()
     }
 }
 
+export let projectsArray = savedProjects ? JSON.parse(savedProjects) : [new Project('Default')]
 
-let projectsArray = savedProjects ? JSON.parse(savedProjects) : [new Project('Default')]
-
-const updateLocalStorage = () => {
+export const updateLocalStorage = () => {
     localStorage.setItem(key, JSON.stringify(projectsArray))
 }
 
@@ -42,4 +41,3 @@ export const removeProject = (id) => {
         projectsArray.splice(index, 1)
         updateLocalStorage()
     }
-
