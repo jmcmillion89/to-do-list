@@ -41,16 +41,3 @@ export const removeThisToDo = (projectID, toDoID) => {
     const toDoIndex = getToDoIndex(projectIndex, toDoID)
     projects[projectIndex].removeToDo(toDoIndex)
 }
-
-// const testID = () => {
-//     return projects[0].id
-// }
-
-// trying to figure out why my index is showing -1 instead of 0
-
-// addNewToDo(testID(), 'test title1', 'test description1', '01/01/2027', 'Medium')
-// addNewToDo('test title2', 'test description2', '01/01/2027', 'High', 'Default')
-// addNewToDo('test title3', 'test description3', '01/01/2027', 'Medium', 'Default')
-// addNewToDo('test title4', 'test description4', '01/01/2027', 'Low', 'Default')
-// addNewToDo('test title5', 'test description5', '01/01/2027', 'Medium', 'Default')
-// addNewToDo('test title6', 'test description6', '01/01/2027', 'High', 'Default')
