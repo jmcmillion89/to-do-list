@@ -1,4 +1,4 @@
-import { Project, getProjects, removeToDo, updateLocalStorage } from "./projects.js"
+import { getProjects } from "./projects.js"
 const projects = getProjects()
 
 class toDo {
