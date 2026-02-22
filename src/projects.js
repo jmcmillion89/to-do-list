@@ -28,8 +28,7 @@ export const addProject = (projectName) => {
     }
     }
 
-export const removeProject = (id) => {
-        const index = projectsArray.map((element) => {return element.id}).indexOf(id)
+export const removeProject = (index) => {
         projectsArray.splice(index, 1)
         updateLocalStorage()
     }
