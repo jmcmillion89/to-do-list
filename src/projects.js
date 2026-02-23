@@ -13,7 +13,7 @@ export let projectsArray = savedProjects ? JSON.parse(savedProjects) : [new Proj
 
 console.log(projectsArray)
 
-const updateLocalStorage = () => {
+export const updateLocalStorage = () => {
     localStorage.setItem(key, JSON.stringify(projectsArray))
 }
 
