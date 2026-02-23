@@ -14,7 +14,7 @@ class toDo {
 }
 
 const getProjectIndex = (id) => {
-    return projects.map(() => {return id}).indexOf(id)
+    return projects.map((project) => {return project.id}).indexOf(id)
 }
 
 const getToDoIndex = (index, id) => {
@@ -35,7 +35,7 @@ export const addNewToDo =
 export const removeThisToDo = (projectID, toDoID) => {
     const projectIndex = getProjectIndex(projectID)
     const toDoIndex = getToDoIndex(projectIndex, toDoID)
-    projects[projectIndex].removeToDo(toDoIndex)
+    projects[projectIndex].todos.splice(toDoIndex, 1)
 }
 
 // const testID = () => {
