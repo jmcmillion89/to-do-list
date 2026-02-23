@@ -1,6 +1,3 @@
-// trying to figure out why my last todo doesnt stay when refreshed
-// also problems when deleting last project
-
 import { getProjects, removeProject, addProject, updateLocalStorage } from "./projects.js"
 import { addNewToDo, removeThisToDo } from "./todos.js"
 
