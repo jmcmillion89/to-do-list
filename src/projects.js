@@ -11,8 +11,6 @@ class Project {
 
 export let projectsArray = savedProjects ? JSON.parse(savedProjects) : [new Project('Default')]
 
-console.log(projectsArray)
-
 export const updateLocalStorage = () => {
     localStorage.setItem(key, JSON.stringify(projectsArray))
 }
