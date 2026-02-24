@@ -66,10 +66,10 @@ const changeComplete = (element, todo) => {
 }
 
 const handleSubmitToDo = (id) => {
-    const title = document.querySelector('#title').value.toString()
-    const description = document.querySelector('#description').value.toString()
-    const due = document.querySelector('#due').value.toString()
-    const priority = document.querySelector('#priority').value.toString()
+    const title = document.querySelector('#title').value
+    const description = document.querySelector('#description').value
+    const due = document.querySelector('#due').value
+    const priority = document.querySelector('#priority').value
     addNewToDo(id, title, description, due, priority)
     updateLocalStorage()
     displayToDos()
@@ -110,8 +110,10 @@ const displayProjectHeader = () => {
     if (projects.length === 0) {
         contentDiv.textContent = '⬅️ Create a project to get started.'}
     else {
-        contentDiv.innerHTML = 
-        `<h2>Project: ${getCurrentProject().name}</h2>`
+        const newH2 = document.createElement('h2')
+        newH2.textContent = 
+        `Project: ${getCurrentProject().name}`
+        contentDiv.appendChild(newH2)
     }
 }
 
@@ -178,12 +180,15 @@ const displayToDoDescription = (element, todo) => {
 const displayToDoDetails = (element, todo) => {
     const toDoDiv = document.createElement('div')
     toDoDiv.classList.add('todo-details')
-    toDoDiv.innerHTML = 
-        `
-        <div>${todo.title}</div>
-        <div>Due: ${todo.dueDate}</div>
-        <div>Priority: ${todo.priority}</div>
-        `
+    const titleDiv = document.createElement('div')
+    titleDiv.textContent = todo.title
+    toDoDiv.appendChild(titleDiv)
+    const dueDiv = document.createElement('div')
+    dueDiv.textContent = `Due: ${todo.dueDate}`
+    toDoDiv.appendChild(dueDiv)
+    const priorityDiv = document.createElement('div')
+    priorityDiv.textContent = `Priority: ${todo.priority}`
+    toDoDiv.appendChild(priorityDiv)
     element.appendChild(toDoDiv)
     addToDoBtns(toDoDiv, todo)
 }
@@ -221,7 +226,7 @@ const buildProjectList = () => {
         projectName.addEventListener(('click'), () => {
             handleProjectClick(index)
         })
-        removeProjectBtn(newDiv, project)
+        removeProjectBtn(newDiv, project, index)
     })
 }
 
@@ -232,21 +237,21 @@ const handleProjectClick = (index) => {
     
 }
 
-const removeProjectBtn = (element, project) => {
+const removeProjectBtn = (element, project, index) => {
     const newBtn = document.createElement('button')
     newBtn.textContent = '❌'
     element.appendChild(newBtn)
     newBtn.addEventListener('click', () => {
-        handleRemoveProjectBtn(project)
+        handleRemoveProjectBtn(project, index)
     })
 }
 
-const handleRemoveProjectBtn = (project) => {
-    removeProject(project.id)
+const handleRemoveProjectBtn = (project, index) => {
+    removeProject(index)
     if (project.id === getCurrentProject().id) {
         setCurrentProject(0)
         displayToDos()
-        }
+    }
     buildProjectList()
 
 }
