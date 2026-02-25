@@ -65,7 +65,9 @@ const changeComplete = (element, todo) => {
     bgColorLogic(element.parentNode.parentNode, todo)
 }
 
-const handleSubmitToDo = (id) => {
+const handleSubmitToDo = () => {
+    const form = document.querySelector('#todo-form')
+    const id = getCurrentProject().id
     const title = document.querySelector('#title').value
     const description = document.querySelector('#description').value
     const due = document.querySelector('#due').value
@@ -73,25 +75,14 @@ const handleSubmitToDo = (id) => {
     addNewToDo(id, title, description, due, priority)
     updateLocalStorage()
     displayToDos()
-    
-}
-
-const closetCurrentoDoDialog = () => {
-    const dialog = document.querySelector('#todo-dialog')
-    const form = document.querySelector('#todo-form')
     form.reset()
-    dialog.close()
 }
 
 const openToDoDialog = () => {
     const dialog = document.querySelector('#todo-dialog')
+    const form = document.querySelector('#todo-form')
     dialog.showModal()
-    const submitBtn = document.querySelector('#submit-todo')
-    submitBtn.addEventListener(('click'), (e) => {
-        e.preventDefault
-        handleSubmitToDo(getCurrentProject().id)
-        closetCurrentoDoDialog()
-    }, {once: true})
+    form.addEventListener('submit', handleSubmitToDo)
     
 }
 
@@ -100,7 +91,7 @@ const addNewToDoBtn = () => {
     const btn = document.createElement('button')
     btn.textContent = '➕'
     contentDiv.appendChild(btn)
-    btn.addEventListener(('click'), () => {
+    btn.addEventListener(('click'), (e) => {
         openToDoDialog()
     })
 }
