@@ -95,6 +95,7 @@ content > button {
 
 .todo-details > div:first-of-type {
   font-weight: bold;
+  width: 50ch;
 }
 
 .todo-buttons {
