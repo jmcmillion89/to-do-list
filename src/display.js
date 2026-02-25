@@ -81,9 +81,18 @@ const handleSubmitToDo = () => {
 const openToDoDialog = () => {
     const dialog = document.querySelector('#todo-dialog')
     const form = document.querySelector('#todo-form')
+    const closeBtn = document.querySelector('#close-button')
     dialog.showModal()
     form.addEventListener('submit', handleSubmitToDo)
+    closeBtn.addEventListener('click', closeToDoDialog)
     
+}
+
+const closeToDoDialog = () => {
+    const dialog = document.querySelector('#todo-dialog')
+    const form = document.querySelector('#todo-form')
+    form.reset()
+    dialog.close()
 }
 
 const addNewToDoBtn = () => {
@@ -280,3 +289,4 @@ const handleNewProjectBtn = (e, newProjectName) => {
 const toggleAddProjectBtn = () => {
     addProjectBtn.style.visibility = addProjectBtn.style.visibility === 'hidden' ? 'visible' : 'hidden'
 }
+
