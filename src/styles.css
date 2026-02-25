@@ -13,6 +13,10 @@
   --shadow: 1px 1px 5px 0px rgba(0,0,0,0.5);
 }
 
+input {
+  font-family: "Handlee", Arial, Helvetica, sans-serif;
+}
+
 body {
   height: 100vh;
   display: grid;
