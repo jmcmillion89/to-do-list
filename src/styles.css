@@ -137,11 +137,14 @@ footer {
 }
 
 dialog {
+  position: relative;
   margin: 5rem auto;
   padding: 2rem;
   border-radius: 1rem;
   background-color: var(--primary-color);
 }
+
+
 
 #todo-form {
   display: flex;
@@ -166,4 +169,14 @@ dialog {
   border: 1px solid var(--light-text-color);
   padding: 0 1rem;
   border-radius: 5px;
+}
+
+#todo-form > button:last-of-type {
+  position: absolute;
+  top: 1rem;
+  right: .5rem;
+  border: none;
+  background-color: inherit;
+  width: fit-content;
+  height: fit-content;
 }
