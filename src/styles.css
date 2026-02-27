@@ -6,15 +6,15 @@
 }
 
 :root {
-  --primary-color: #89986D;
-  --secondary-color: #9CAB84;
-  --light-text-color: #F6F0D7;
+  --primary-color: #89986d;
+  --secondary-color: #9cab84;
+  --light-text-color: #f6f0d7;
   --content-bg-color: var(--light-text-color);
-  --shadow: 1px 1px 5px 0px rgba(0,0,0,0.5);
+  --shadow: 1px 1px 5px 0px rgba(0, 0, 0, 0.5);
 }
 
 input {
-  font-family: "Handlee", Arial, Helvetica, sans-serif;
+  font-family: 'Handlee', Arial, Helvetica, sans-serif;
 }
 
 body {
@@ -22,7 +22,7 @@ body {
   display: grid;
   grid-template-columns: 200px 3fr;
   grid-template-rows: 50px 10fr 25px;
-  font-family: "Handlee", Arial, Helvetica, sans-serif;
+  font-family: 'Handlee', Arial, Helvetica, sans-serif;
 }
 
 header {
@@ -45,7 +45,7 @@ nav {
   flex-direction: column;
 }
 
-.project-list > *{
+.project-list > * {
   display: flex;
   justify-content: space-between;
   padding: 5px;
@@ -82,7 +82,6 @@ content > h2 {
   display: grid;
   gap: 1rem;
   padding: 0 1rem;
-  
 }
 
 content > button {
@@ -94,7 +93,6 @@ content > button {
 .todo {
   padding: 1rem;
   box-shadow: var(--shadow);
-  
 }
 
 .todo-details {
@@ -144,15 +142,15 @@ dialog {
   background-color: var(--primary-color);
 }
 
-
-
 #todo-form {
   display: flex;
   flex-direction: column;
   gap: 1rem;
 }
 
-#todo-form > input, textarea, select {
+#todo-form > input,
+textarea,
+select {
   background-color: var(--light-text-color);
 }
 
@@ -165,7 +163,7 @@ dialog {
 
 #todo-form > button {
   align-self: center;
-  background-color: var(--secondary-color );
+  background-color: var(--secondary-color);
   border: 1px solid var(--light-text-color);
   padding: 0 1rem;
   border-radius: 5px;
@@ -174,7 +172,7 @@ dialog {
 #todo-form > button:last-of-type {
   position: absolute;
   top: 1rem;
-  right: .5rem;
+  right: 0.5rem;
   border: none;
   background-color: inherit;
   width: fit-content;

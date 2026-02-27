@@ -1,5 +1,3 @@
-import './styles.css'
-// import { compareAsc, format } from "date-fns";
+import './styles.css';
 import { renderDisplay } from './display.js';
-// const date = new Date()
-renderDisplay()
+renderDisplay();
